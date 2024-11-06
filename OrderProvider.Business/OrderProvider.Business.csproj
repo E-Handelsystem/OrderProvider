@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\OrderProvider.Data\OrderProvider.Data.csproj" />
+    <ProjectReference Include="..\OrderProvider.Domain\OrderProvider.Domain.csproj" />
   </ItemGroup>
 
 </Project>
