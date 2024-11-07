@@ -1,11 +1,10 @@
 ﻿using Moq;
-using OrderProvider.Business.Interfaces;
+
 using OrderProvider.Business.Services;
 using OrderProvider.Data.Interfaces;
+using OrderProvider.Domain.Enum;
+using OrderProvider.Domain.Factories;
 using OrderProvider.Domain.Models;
-using System;
-using System.Collections.Generic;
-using Xunit;
 
 public class OrderServiceTests
 {
@@ -19,16 +18,14 @@ public class OrderServiceTests
     }
 
     [Fact]
-    public void GetAllOrders_ShouldReturnAllOrdersWithCorrectDetails()
+    public void GetAllOrders__Should_ReturnAll_Orders()
     {
         // Arrange
         var orders = new List<OrderEntity>
         {
-           new OrderEntity { OrderId = "1", Status = "Bearbetas", TotalAmount = 100 },
-            new OrderEntity { OrderId = "1", Status = "Skickad", TotalAmount = 150}
+           new OrderEntity { OrderId = "1", Status = OrderProvider.Domain.Enum.OrderStatus.Pending, TotalAmount = 100 },
+            new OrderEntity { OrderId = "2", Status = OrderProvider.Domain.Enum.OrderStatus.Shipped, TotalAmount = 150}
         };
-
-     
         _orderRepositoryMock.Setup(s =>s.GetAllOrders()).Returns(orders);
 
         // Act
