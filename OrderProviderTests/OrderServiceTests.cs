@@ -38,6 +38,17 @@ public class OrderServiceTests
 
     }
     [Fact]
+    public void GetOrderByOrderId_ShouldReturnMatchingOrder()
+    {
+        // Arrange
+        var orders = new List<OrderEntity>
+     {
+         new OrderEntity { OrderId = "1", Status = OrderStatus.Pending, TotalAmount = 100, CustomerName = "Customer A" },
+         new OrderEntity { OrderId = "2", Status = OrderStatus.Shipped, TotalAmount = 150, CustomerName = "Customer B" }
+     };
+
+        _orderRepositoryMock.Setup(s => s.GetOrderById("1")).Returns(orders.FirstOrDefault(o => o.OrderId == "1"));
+    [Fact]
 
     public void GetOrdersByStatus_ShouldReturnOnlyOrdersWithSpecifiedStatus()
     {
@@ -63,7 +74,14 @@ public class OrderServiceTests
 
 
 
+        // Act
+        var result = _orderService.GetOrderById("1");
 
-
-
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("1", result.OrderId);
+        Assert.Equal("Customer A", result.CustomerName);
+        Assert.Equal(100, result.TotalAmount);
+        Assert.Equal(OrderStatus.Pending, result.Status);
+    }
 }

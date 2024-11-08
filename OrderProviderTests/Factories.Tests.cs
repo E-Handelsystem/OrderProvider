@@ -33,6 +33,32 @@ namespace OrderProviderTests
             Assert.Equal(request.CustomerName, orderEntity.CustomerName);
         }
 
-       
+        [Fact]
+        public void CreateResponseFromOrder_ValidOrder_ReturnsOrderResponse()
+        {
+            // Arrange
+            var orderEntity = new OrderEntity
+            {
+                OrderId = Guid.NewGuid().ToString(),
+                CustomerName = "Test Customer",
+                OrderDate = DateTime.Now,
+                Status = OrderStatus.Confirmed,
+                TotalAmount = 100,
+                ProductList = new List<OrderProduct>
+            {
+                new OrderProduct { ProductID = 1, Quantity = 2 }
+            },
+                DeliveryAddress = "Exempelgatan 1"
+            };
+
+            // Act
+            var orderResponse = OrderFactory.CreateResponseFromOrder(orderEntity);
+
+            // Assert
+            Assert.NotNull(orderResponse);
+            Assert.Equal(orderEntity.OrderId, orderResponse.OrderID);
+            Assert.NotEqual(DateTime.MinValue, orderResponse.EstimatedDeliveryDate);
+            Assert.Equal(orderEntity, orderResponse.OrderDetails);
+        }
     }
 }

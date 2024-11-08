@@ -3,6 +3,7 @@ using OrderProvider.Domain.Models;
 
 namespace OrderProvider.Data.Repositories;
 
+//test kommentar
 public class OrderRepository : IOrderRepository
 {
     public List<OrderEntity> GetAllOrders()
