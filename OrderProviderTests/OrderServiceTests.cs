@@ -37,7 +37,31 @@ public class OrderServiceTests
         Assert.Equal(2, result.Count);
 
     }
-   
+    [Fact]
+
+    public void GetOrdersByStatus_ShouldReturnOnlyOrdersWithSpecifiedStatus()
+    {
+        // Arrange
+        var orders = new List<OrderEntity>
+    {
+        new OrderEntity { OrderId = "1", Status = OrderStatus.Pending , TotalAmount = 100 },
+        new OrderEntity { OrderId = "2", Status = OrderStatus.Shipped, TotalAmount = 150 },
+        new OrderEntity { OrderId = "3", Status = OrderStatus.Confirmed, TotalAmount = 200 }
+    };
+
+        _orderRepositoryMock.Setup(s => s.GetAllOrders()).Returns(orders);
+
+        // Act
+        var result = _orderService.GetOrdersByStatus(OrderStatus.Shipped);
+
+        // Assert
+        
+        Assert.NotNull(result);
+        Assert.Single(result);
+        
+    }
+
+
 
 
 

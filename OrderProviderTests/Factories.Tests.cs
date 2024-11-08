@@ -1,4 +1,5 @@
-﻿using OrderProvider.Domain.Factories;
+﻿using OrderProvider.Domain.Enum;
+using OrderProvider.Domain.Factories;
 using OrderProvider.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -31,5 +32,7 @@ namespace OrderProviderTests
             Assert.Equal(request.DeliveryAddress, orderEntity.DeliveryAddress);
             Assert.Equal(request.CustomerName, orderEntity.CustomerName);
         }
+
+       
     }
 }
