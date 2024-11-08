@@ -17,8 +17,4 @@ public class OrderService : IOrderService
     {
         return _orderRepository.GetAllOrders();
     }
-    public OrderEntity GetOrderById(string id)
-    {
-        return _orderRepository.GetOrderById(id);
-    }
 }

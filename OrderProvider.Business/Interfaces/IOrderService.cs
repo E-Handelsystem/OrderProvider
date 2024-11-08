@@ -7,9 +7,4 @@ namespace OrderProvider.Business.Interfaces;
 public interface IOrderService
 {
     List<OrderEntity> GetAllOrders();
-    OrderEntity GetOrderById(string id);
-
-
 }
-
-
