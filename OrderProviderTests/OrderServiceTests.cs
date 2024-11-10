@@ -35,8 +35,8 @@ public class OrderServiceTests
      
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
-
     }
+
     [Fact]
     public void GetOrderByOrderId_ShouldReturnMatchingOrder()
     {
@@ -49,10 +49,8 @@ public class OrderServiceTests
 
         _orderRepositoryMock.Setup(s => s.GetOrderById("1")).Returns(orders.FirstOrDefault(o => o.OrderId == "1")!);
 
-
         // Act
         var result = _orderService.GetOrderById("1");
-
 
         // Assert
         Assert.NotNull(result);
@@ -60,8 +58,6 @@ public class OrderServiceTests
         Assert.Equal("Customer A", result.CustomerName);
         Assert.Equal(100, result.TotalAmount);
         Assert.Equal(OrderStatus.Pending, result.Status);
-
-      
     }
 
 
@@ -85,7 +81,24 @@ public class OrderServiceTests
 
         Assert.NotNull(result);
         Assert.Single(result);
+    }
 
+    [Fact]
+    public void Remov_OrderByOrderId__Should_Return_True()
+    {
+        // Arrange
+        var orders = new List<OrderEntity>
+     {
+         new OrderEntity { OrderId = "1", Status = OrderStatus.Pending, TotalAmount = 100, CustomerName = "Customer A" },
+         new OrderEntity { OrderId = "2", Status = OrderStatus.Shipped, TotalAmount = 150, CustomerName = "Customer B" }
+     };
 
+        _orderRepositoryMock.Setup(s => s.RemoveOrderById("1")).Returns(true);
+
+        // Act
+        var result = _orderService.RemoveOrderById("1");
+
+        // Assert
+        Assert.True(result);
     }
 }

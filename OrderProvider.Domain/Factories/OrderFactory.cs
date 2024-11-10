@@ -28,9 +28,8 @@ public class OrderFactory
     {
         return new OrderResponse
         {
-            OrderID = order.OrderId!,
             EstimatedDeliveryDate = DateTime.Now.AddDays(5), //ChatGpt-40
-            OrderDetails = order
+             OrderId = order.OrderId
         };
     }
 

@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 
 namespace OrderProvider.Domain.Models
 {
-    public class OrderEntity
+    public class OrderEntity:OrderBase
     {
-        public string? OrderId { get; set; }   
-        public string? CustomerName { get; set; } 
-        public DateTime OrderDate { get; set; }
-        public OrderStatus Status { get; set; }
-        public decimal TotalAmount { get; set; }
-        public List<OrderProduct> ProductList { get; set; } = null!;
-        public string DeliveryAddress { get; set; } = null!;
+        public int ProductID { get; set; }
+        public int Quantity { get; set; }
     }
 
 }

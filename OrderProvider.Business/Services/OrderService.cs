@@ -25,7 +25,14 @@ public class OrderService : IOrderService
 
     public List<OrderEntity> GetOrdersByStatus(OrderStatus status)
     {
+        
         var allOrders = _orderRepository.GetAllOrders();
         return allOrders.Where(o => o.Status == status).ToList();
+
+    }
+
+    public bool RemoveOrderById(string id)
+    {
+        return _orderRepository.RemoveOrderById(id);
     }
 }
