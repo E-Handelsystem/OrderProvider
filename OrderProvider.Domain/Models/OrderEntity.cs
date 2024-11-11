@@ -9,8 +9,7 @@ namespace OrderProvider.Domain.Models
 {
     public class OrderEntity:OrderBase
     {
-        public int ProductID { get; set; }
-        public int Quantity { get; set; }
+        public string CategoryID { get; set; } = null!;
     }
 
 }

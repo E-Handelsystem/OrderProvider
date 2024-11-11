@@ -56,7 +56,7 @@ namespace OrderProviderTests
 
             // Assert
             Assert.NotNull(orderResponse);
-            Assert.Equal(DateTime.MinValue, orderResponse.OrderDate);
+            Assert.Equal(orderEntity.OrderDate, orderResponse.OrderDate);
             Assert.Equal(orderEntity.OrderId, orderResponse.OrderId);
 
         }
