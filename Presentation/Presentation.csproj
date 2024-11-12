@@ -16,8 +16,4 @@
     <ProjectReference Include="..\OrderProvider.Domain\OrderProvider.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
