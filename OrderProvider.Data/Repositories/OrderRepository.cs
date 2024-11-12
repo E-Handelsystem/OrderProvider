@@ -1,12 +1,22 @@
 ﻿using OrderProvider.Data.Interfaces;
 using OrderProvider.Domain.Enum;
+using OrderProvider.Domain.Factories;
 using OrderProvider.Domain.Models;
 
 namespace OrderProvider.Data.Repositories;
 
-//test kommentar
+
 public class OrderRepository : IOrderRepository
 {
+    public ResponseResult<OrderResponse> Create(OrderRequest order)
+    {
+        var entity = OrderFactory.CreateOrderFromRequest(order);
+
+        var product = OrderFactory.CreateResponseFromOrder(entity);
+
+        return ResponseResultFactory.Success(product, message: "Created successfully");
+    }
+   
     public List<OrderEntity> GetAllOrders()
     {
         throw new NotImplementedException();

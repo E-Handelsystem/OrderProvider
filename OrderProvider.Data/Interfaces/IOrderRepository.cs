@@ -9,6 +9,8 @@ namespace OrderProvider.Data.Interfaces;
 
 public interface IOrderRepository
 {
+
+    ResponseResult<OrderResponse> Create(OrderRequest order);
     OrderEntity GetOrderById(string orderId);
     void UpdateOrder(OrderEntity order);
     List<OrderEntity> GetAllOrders();
