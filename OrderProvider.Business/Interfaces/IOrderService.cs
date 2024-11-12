@@ -8,12 +8,13 @@ namespace OrderProvider.Business.Interfaces;
 public interface IOrderService
 {
     ResponseResult<OrderResponse> Create(OrderRequest request);
-    List<OrderEntity> GetAllOrders();
-    OrderEntity GetOrderById(string id);
-    bool RemoveOrderById(string id);
-    List<OrderEntity> GetOrdersByStatus(OrderStatus status);
+    ResponseResult<IEnumerable<OrderResponse>> GetAllOrders();
+    ResponseResult<OrderResponse> GetOrderById(string orderId);
+    ResponseResult<OrderResponse> GetOrdersByStatus(OrderStatus status);
+    public ResponseResult RemoveOrderById(string id);
 
-   
+
+
 }
 
 

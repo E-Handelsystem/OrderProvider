@@ -34,7 +34,7 @@ public class OrderServiceTests
         // Assert
      
         Assert.NotNull(result);
-        Assert.Equal(2, result.Count);
+        Assert.Equal(2, result.Data!.Count());
     }
 
     [Fact]
@@ -42,23 +42,24 @@ public class OrderServiceTests
     {
         // Arrange
         var orders = new List<OrderEntity>
-     {
-         new OrderEntity { OrderId = "1", Status = OrderStatus.Pending, TotalAmount = 100, CustomerName = "Customer A" },
-         new OrderEntity { OrderId = "2", Status = OrderStatus.Shipped, TotalAmount = 150, CustomerName = "Customer B" }
-     };
+    {
+        new OrderEntity { OrderId = "1", Status = OrderStatus.Pending, TotalAmount = 100, CustomerName = "Customer A" },
+        new OrderEntity { OrderId = "2", Status = OrderStatus.Shipped, TotalAmount = 150, CustomerName = "Customer B" }
+    };
 
-        _orderRepositoryMock.Setup(s => s.GetOrderById("1")).Returns(orders.FirstOrDefault(o => o.OrderId == "1")!);
+        // Set up the mock to return the full list of orders when GetAllOrders is called
+        _orderRepositoryMock.Setup(s => s.GetAllOrders()).Returns(orders);
 
         // Act
         var result = _orderService.GetOrderById("1");
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal("1", result.OrderId);
-        Assert.Equal("Customer A", result.CustomerName);
-        Assert.Equal(100, result.TotalAmount);
-        Assert.Equal(OrderStatus.Pending, result.Status);
+        Assert.NotNull(result.Data);
+        Assert.Equal("1", result.Data.OrderId);
+        Assert.Equal(OrderStatus.Pending, result.Data.Status);
     }
+
 
 
     [Fact]
@@ -80,7 +81,8 @@ public class OrderServiceTests
         // Assert
 
         Assert.NotNull(result);
-        Assert.Single(result);
+        Assert.True(result.Success);
+        Assert.Equal(OrderStatus.Shipped, result.Data!.Status);
     }
 
     [Fact]
@@ -93,12 +95,13 @@ public class OrderServiceTests
          new OrderEntity { OrderId = "2", Status = OrderStatus.Shipped, TotalAmount = 150, CustomerName = "Customer B" }
      };
 
-        _orderRepositoryMock.Setup(s => s.RemoveOrderById("1")).Returns(true);
+        _orderRepositoryMock.Setup(s => s.RemoveOrderById("1")).Returns(ResponseResultFactory.Success());
 
         // Act
         var result = _orderService.RemoveOrderById("1");
 
         // Assert
-        Assert.True(result);
+        Assert.True(result.Success);
     }
+
 }

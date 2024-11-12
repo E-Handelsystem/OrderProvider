@@ -14,7 +14,6 @@ public interface IOrderRepository
     OrderEntity GetOrderById(string orderId);
     void UpdateOrder(OrderEntity order);
     List<OrderEntity> GetAllOrders();
-
     List<OrderEntity> GetOrdersByStatus(OrderStatus status);
-   bool RemoveOrderById(string id);
+    ResponseResult RemoveOrderById(string id);
 }

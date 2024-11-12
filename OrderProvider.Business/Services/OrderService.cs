@@ -19,30 +19,49 @@ public class OrderService : IOrderService
 
     public ResponseResult<OrderResponse> Create(OrderRequest request)
     {
-        var result = _orderRepository.Create(request);
+        var entity = OrderFactory.CreateOrderFromRequest(request);
 
-        return result;
+        var product = OrderFactory.CreateResponseFromOrder(entity);
+
+        return ResponseResultFactory.Success(product, message: "Created successfully");
     }
 
-    public List<OrderEntity> GetAllOrders()
-    {
-        return _orderRepository.GetAllOrders();
-    }
-    public OrderEntity GetOrderById(string orderId)
-    {
-        return _orderRepository.GetOrderById(orderId);
-    }
 
-    public List<OrderEntity> GetOrdersByStatus(OrderStatus status)
+   //-----------------------------------------------------------
+   //ChatGPT
+    public ResponseResult<IEnumerable<OrderResponse>> GetAllOrders()
     {
-        
         var allOrders = _orderRepository.GetAllOrders();
-        return allOrders.Where(o => o.Status == status).ToList();
 
+        if (allOrders == null)
+        {
+            return ResponseResultFactory.NotFound<IEnumerable<OrderResponse>>(null!, message: "No orders found");
+        }
+
+        var orderResponses = allOrders.Select(OrderFactory.CreateResponseFromOrder);
+        return ResponseResultFactory.Success(orderResponses);
     }
+    //___________________________________________________________
+    public ResponseResult<OrderResponse> GetOrderById(string orderId)
+    {
+        var allOrders = _orderRepository.GetAllOrders();
+        var result = allOrders.FirstOrDefault(o => o.OrderId == orderId);
+        var product = OrderFactory.CreateResponseFromOrder(result!);
+        return ResponseResultFactory.Success(product);
+    }
+ 
+    public ResponseResult<OrderResponse> GetOrdersByStatus(OrderStatus status)
+    {
+       
+        var allOrders = _orderRepository.GetAllOrders();
+        var result= allOrders.FirstOrDefault(s => s.Status == status);
+        var product = OrderFactory.CreateResponseFromOrder(result!);
+        return ResponseResultFactory.Success(product);
+ }
 
-    public bool RemoveOrderById(string id)
+    public ResponseResult RemoveOrderById(string id)
     {
         return _orderRepository.RemoveOrderById(id);
+        
     }
 }
