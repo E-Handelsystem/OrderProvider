@@ -33,8 +33,10 @@ public class OrderRepository : IOrderRepository
         throw new NotImplementedException();
     }
 
-    public void UpdateOrder(OrderEntity order)
+    public ResponseResult UpdateOrder(OrderEntity order)
     {
         throw new NotImplementedException();
     }
+
+   
 }

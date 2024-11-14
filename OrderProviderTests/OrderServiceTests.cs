@@ -103,5 +103,26 @@ public class OrderServiceTests
         // Assert
         Assert.True(result.Success);
     }
+    [Fact]
+    public void UpdateOrderStatus__Should_UpdateOrderStatus()
+    {
+        // Arrange
+        var orderId = "1";
+        var newStatus = OrderStatus.Shipped;
+        var existingOrder = new OrderEntity { OrderId = orderId, Status = OrderStatus.Pending };
+
+        _orderRepositoryMock.Setup(repo => repo.GetOrderById(orderId)).Returns(existingOrder);
+        _orderRepositoryMock.Setup(repo => repo.UpdateOrder(It.IsAny<OrderEntity>()));
+
+        // Act
+        var result = _orderService.UpdateOrderStatus(orderId, newStatus);
+
+        // Assert
+        Assert.True(result.Success);
+        Assert.Equal("Order status updated successfully", result.Messege);
+        Assert.Equal(newStatus, existingOrder.Status);
+        _orderRepositoryMock.Verify(repo => repo.UpdateOrder(existingOrder), Times.Once);
+    }
+
 
 }

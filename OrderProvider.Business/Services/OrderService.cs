@@ -64,4 +64,17 @@ public class OrderService : IOrderService
         return _orderRepository.RemoveOrderById(id);
         
     }
+
+    public ResponseResult UpdateOrderStatus(string orderId, OrderStatus newStatus)
+    {
+       
+        var order = _orderRepository.GetOrderById(orderId);
+    
+        order.Status = newStatus;
+
+        _orderRepository.UpdateOrder(order);
+
+        return ResponseResultFactory.Success(message:"Order status updated successfully");
+    }
 }
+
