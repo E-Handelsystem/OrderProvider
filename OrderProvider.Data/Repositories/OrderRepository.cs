@@ -10,13 +10,9 @@ public class OrderRepository : IOrderRepository
 {
     public ResponseResult<OrderResponse> Create(OrderRequest order)
     {
-        var entity = OrderFactory.CreateOrderFromRequest(order);
-
-        var product = OrderFactory.CreateResponseFromOrder(entity);
-
-        return ResponseResultFactory.Success(product, message: "Created successfully");
+        throw new NotImplementedException();
     }
-   
+
     public List<OrderEntity> GetAllOrders()
     {
         throw new NotImplementedException();
@@ -29,17 +25,18 @@ public class OrderRepository : IOrderRepository
 
     public List<OrderEntity> GetOrdersByStatus(OrderStatus status)
     {
-        var allOrders =GetAllOrders();
-        return allOrders.Where(o => o.Status == status).ToList();
+        throw new NotImplementedException();
     }
 
-    public bool RemoveOrderById(string orderId)
+    public ResponseResult RemoveOrderById(string id)
     {
         throw new NotImplementedException();
     }
 
-    public void UpdateOrder(OrderEntity order)
+    public ResponseResult UpdateOrder(OrderEntity order)
     {
         throw new NotImplementedException();
     }
+
+   
 }

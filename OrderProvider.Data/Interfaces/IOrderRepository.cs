@@ -12,9 +12,8 @@ public interface IOrderRepository
 
     ResponseResult<OrderResponse> Create(OrderRequest order);
     OrderEntity GetOrderById(string orderId);
-    void UpdateOrder(OrderEntity order);
+    ResponseResult UpdateOrder(OrderEntity order);
     List<OrderEntity> GetAllOrders();
-
     List<OrderEntity> GetOrdersByStatus(OrderStatus status);
-   bool RemoveOrderById(string id);
+    ResponseResult RemoveOrderById(string id);
 }
